@@ -32,11 +32,16 @@ object Day02 : Challenge<List<Round>> {
         return input.sumOf { it.score }.toLong()
     }
 
+    override fun solvePartTwo(input: List<Round>): Long {
+        println(input.map { it.score })
+        return input.sumOf { it.score }.toLong()
+    }
+
 }
 
 object Day02Parser : InputParser<List<Round>> {
 
-    override fun parse(input: String): List<Round> {
+    override fun parsePartOne(input: String): List<Round> {
         return input.split("\n").filter { it.isNotBlank() }.map { round ->
             val actions = round.split(" ").map { action ->
                 when(action) {
@@ -49,7 +54,26 @@ object Day02Parser : InputParser<List<Round>> {
                     else -> throw IllegalArgumentException("Unknown action: $action")
                 }
             }
-            Round(actions[0], actions[1])
+            Round(actions[1], actions[0]) //swap it because A..C is the opponent, X..Z is the player
+        }
+    }
+
+    override fun parsePartTwo(input: String): List<Round> {
+        return input.split("\n").filter { it.isNotBlank() }.map { round ->
+            val actions = round.split(" ")
+            val opponent = when(actions[0]) {
+                "A" -> Round.Action.ROCK
+                "B" -> Round.Action.PAPER
+                "C" -> Round.Action.SCISSORS
+                else -> throw IllegalArgumentException("Unknown action")
+            }
+            val player = when(actions[1]) {
+                "X" -> Round.Action.values().first { !it.beats(opponent) }
+                "Y" -> opponent
+                "Z" -> Round.Action.values().first { it.beats(opponent) }
+                else -> throw IllegalArgumentException("Unknown action")
+            }
+            Round(player, opponent)
         }
     }
 

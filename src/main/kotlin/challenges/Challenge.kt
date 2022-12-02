@@ -2,7 +2,9 @@ package challenges
 
 interface InputParser <In> {
 
-    fun parse(input: String): In
+    fun parsePartOne(input: String): In
+
+    fun parsePartTwo(input: String): In
 
 }
 

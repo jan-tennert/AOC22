@@ -1,6 +1,6 @@
 package challenges
 
-data class Day01Input(val numbers: List<Int>)
+class Day01Input(val numbers: List<Int>)
 
 object Day01 : Challenge<Day01Input> {
 
@@ -19,8 +19,12 @@ object Day01 : Challenge<Day01Input> {
 
 object Day01Parser : InputParser<Day01Input> {
 
-    override fun parse(input: String): Day01Input {
+    override fun parsePartOne(input: String): Day01Input {
         return Day01Input(input.split("\n\n").map { it.split("\n").filter { n -> n.isNotBlank() }.sumOf { n -> n.toInt() } })
+    }
+
+    override fun parsePartTwo(input: String): Day01Input {
+        return parsePartOne(input)
     }
 
 }

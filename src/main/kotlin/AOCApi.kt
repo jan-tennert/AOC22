@@ -30,7 +30,7 @@ class AOCApi {
     }
 
     suspend fun <T> run(challenge: Challenge<T>, partTwo: Boolean) {
-        val input = challenge.parser.parse(inputFor(challenge.day))
+        val input = if(partTwo) challenge.parser.parsePartTwo(inputFor(challenge.day)) else challenge.parser.parsePartOne(inputFor(challenge.day))
         val result = if (partTwo) challenge.solvePartTwo(input) else challenge.solvePartOne(input)
         println("Result for Part ${if(partTwo) 2 else 1} of Day ${challenge.day}: $result")
         //submit(challenge.day, if(partTwo) 2 else 1, result) not working currently
