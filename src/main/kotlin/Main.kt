@@ -1,7 +1,7 @@
-import challenges.Day01
+import challenges.Day02
 
-suspend fun main(args: Array<String>) {
+suspend fun main() {
     val aocApi = AOCApi()
 
-    aocApi.run(Day01, true)
+    aocApi.run(Day02, false)
 }
